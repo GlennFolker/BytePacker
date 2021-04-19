@@ -1,14 +1,13 @@
-.gradle
-/build/
+# Gradle / Java
+.gradle/
+.settings/
 
-# Ignore Gradle GUI config
-gradle-app.setting
+build/
+bin/
 
-# Avoid ignoring Gradle wrapper jar file (.jar files are usually ignored)
-!gradle-wrapper.jar
+.project
+.settings
 
-# Cache of project
-.gradletasknamecache
-
-# # Work around https://youtrack.jetbrains.com/issue/IDEA-116898
-# gradle/wrapper/gradle-wrapper.properties
+# IDE specific
+.vscode/
+.idea/

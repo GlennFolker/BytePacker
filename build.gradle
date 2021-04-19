@@ -1,0 +1,37 @@
+plugins {
+    id 'java'
+}
+
+sourceSets.main {
+    java.srcDirs = [ 'src/' ]
+}
+
+sourceCompatibility = 15
+targetCompatibility = 15
+
+ext {
+    mainClass = 'packer.BytePacker'
+}
+
+task dist(type: Jar, dependsOn: configurations.runtimeClasspath) {
+    archiveFileName = 'BytePacker.jar'
+
+    from files(sourceSets.main.output.classesDirs)
+    from files(sourceSets.main.output.resourcesDir)
+    from configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+
+    manifest {
+        attributes 'Main-Class': project.mainClass
+    }
+}
+
+task run(type: JavaExec, dependsOn: [ classes, configurations.runtimeClasspath ]) {
+    main = project.mainClass
+    standardInput System.in
+    classpath sourceSets.main.runtimeClasspath
+    jvmArgs += '--enable-preview'
+}
+
+compileJava {
+    options.compilerArgs += '--enable-preview'
+}
